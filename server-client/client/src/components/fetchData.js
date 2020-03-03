@@ -1,18 +1,11 @@
 import React, { Component } from 'react'
-
+import { getAlldata } from '../config'
 export default class componentName extends Component {
   componentDidMount() {
-    fetch('http://127.0.0.1:3030/api', {
-      method: 'GET'
-      // mode: 'no-cors'
-      //dataType: 'json'
-    })
+    getAlldata('products')
       .then(res => res.json())
       .then(res => {
         console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
       })
   }
 
