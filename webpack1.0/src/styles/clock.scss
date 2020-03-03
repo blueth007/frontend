@@ -1,0 +1,91 @@
+.clock{
+  width:200px;
+  height: 200px;
+  border:5px solid white;
+  margin: 20px auto;
+  border-radius:50%;
+  position: relative;
+  background-color: green !important;
+ 
+  .huor-time{
+    /*/transform: rotate(-90deg);*/ 
+    transform-origin:  -10px 0px; 
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 40px;
+    height: 12px;
+     border-radius: 5px ;
+  
+    transform: translate(0, -50%);
+   
+    background:blue;
+   
+    //animation: move 43200s infinite linear;
+  }
+
+  .minute-time{
+    position: absolute;
+    background:red;
+   
+   
+
+    width: 60px;
+    height: 8px;
+    border-radius: 5px ;
+    top: 50%;
+    left: 50%;
+    transform: translate(0, -50%);
+    transform-origin:0% 0%; 
+    //animation: move 3600s infinite linear;
+  }
+
+  .second-time{
+    position: absolute;
+    background:yellow;
+    border-radius: 5px ;
+    
+    width: 80px;
+    height: 5px;
+   
+    top: 50%;
+    left: 50%;
+    transform: translate(0, -50%);
+    transform-origin:0 0; 
+ 
+  
+    //animation: move 60s infinite linear;
+    
+  }
+
+  /*  可以用react中state 动态变化来做
+    @keyframes move {
+      from{
+     
+      
+     }  
+     to{
+        transform: rotate(360deg);
+      
+   
+    }
+*/
+  &::after{
+    content:"";
+    z-index: 11111;
+    width:20px;
+    height: 20px;
+    position: absolute;
+    background-color: white;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+   
+  } 
+}
+
+
+*{
+ box-sizing: border-box;
+}

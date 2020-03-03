@@ -1,0 +1,42 @@
+.todolist {
+    margin:20px 0;
+    width: 300px;
+    padding:0 20px;
+    border:1px solid forestgreen;
+    h1{
+        text-align: center;
+        margin: 20px 0;
+    }
+    ul {
+        list-style: none;
+        margin: 10px;
+        li {
+            padding: 5px 0;
+            font: 16px/16px bold;
+            display:  block;
+            position: relative;
+            span:last-child{
+                position: absolute;
+                right: 10px;
+            }
+        }
+    }
+    input {
+        outline: none;
+        border-color: skyblue;
+        padding: 5px;
+        border-radius: 5px;
+    }
+    button{
+        background-color: rgb(89, 158, 223);
+        padding: 2px 15px;
+        border-radius: 8px;
+        margin-left:5px ;
+        outline: none;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    
+}
