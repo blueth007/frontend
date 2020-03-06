@@ -1,12 +1,18 @@
 import React from 'react'
 
-import FetchData from './components/fetchData'
+ 
 import './App.css'
+import {Spinner,ShelfContainer,SizeFilter,FloatCart} from "./components"
 
-function App() {
+
+function App(props) {
+  
   return (
     <div className="App">
-      <FetchData />
+      <Spinner/>
+      <SizeFilter/>
+      <ShelfContainer />
+      <FloatCart/>
     </div>
   )
 }
