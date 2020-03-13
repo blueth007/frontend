@@ -1,203 +1,119 @@
-import { SelectFilters } from '../action/action'
-import { combineReducers } from 'redux'
+import {
+    SelectFilters,
+    SELECTSIZE,
+    PULL_CART,
+    PUSH_CART,
+    INCREASE_QUANTITY,
+    DECREASE_QUANTITY,
+    INVALIDATE_LIST, //刷新
+    REQUEST_POSTS, //请求
+    RECEIVE_POSTS, //获取
+    FAILED_POSTS
+} from "../action/action";
+import { combineReducers } from "redux";
 
-
-const initlists = [
-    {
-        "id": 0,
-        "sku": 8552515751438644,
-        "title": "Cat Tee Black T-Shirt",
-        "description": "14/15 s/nº",
-        "availableSizes": [
-            "X",
-            "L",
-            "XL",
-            "XXL"
-        ],
-        "style": "Branco com listras pretas",
-        "price": 10.9,
-        "installments": 9,
-        "currencyId": "USD",
-        "currencyFormat": "$",
-        "isFreeShipping": true
+function posts(
+    state = {
+        isFetching: false,
+        products: []
     },
-    {
-        "id": 1,
-        "sku": 18644119330491312,
-        "title": "Sphynx Tie Dye Grey T-Shirt",
-        "description": "14/15 s/nº",
-        "availableSizes": [
-            "X",
-            "L",
-            "XL",
-            "XXL"
-        ],
-        "style": "Preta com listras brancas",
-        "price": 10.9,
-        "installments": 9,
-        "currencyId": "USD",
-        "currencyFormat": "$",
-        "isFreeShipping": true
-    },
-    {
-        "id": 2,
-        "sku": 10686354557628303,
-        "title": "Sphynx Tie Dye Wine T-Shirt",
-        "description": "GPX Poly 1",
-        "availableSizes": [
-            "X",
-            "L",
-            "XL"
-        ],
-        "style": "Front tie dye print",
-        "price": 9.0,
-        "installments": 3,
-        "currencyId": "USD",
-        "currencyFormat": "$",
-        "isFreeShipping": true
-    },
-    {
-        "id": 15,
-        "sku": 11033926921508487,
-        "title": "Skuul",
-        "description": "Treino 2014",
-        "availableSizes": [
-            "X",
-            "L",
-            "XL",
-            "XXL"
-        ],
-        "style": "Black T-Shirt with front print",
-        "price": 14.0,
-        "installments": 5,
-        "currencyId": "USD",
-        "currencyFormat": "$",
-        "isFreeShipping": true
-    },
-    {
-        "id": 21,
-        "sku": 12064273040195392,
-        "title": "Cat Tee Black T-Shirt",
-        "description": "4 MSL",
-        "availableSizes": [
-            "S",
-            "XS"
-        ],
-        "style": "Black with custom print",
-        "price": 10.9,
-        "installments": 9,
-        "currencyId": "USD",
-        "currencyFormat": "$",
-        "isFreeShipping": true
-    },
-    {
-        "id": 13,
-        "sku": 51498472915966366,
-        "title": "Dark Thug Blue-Navy T-Shirt",
-        "description": "",
-        "availableSizes": [
-            "M"
-        ],
-        "style": "Front print and paisley print",
-        "price": 29.45,
-        "installments": 5,
-        "currencyId": "USD",
-        "currencyFormat": "$",
-        "isFreeShipping": true
-    },
-
-]
-
-
-// const initStore={
-//     filterSize:[],
-//     orderBy:SelectFilters.SELECT,
-//     lists
-// }
-
-
-function setfilterSize(state = [], action) {
-
+    action
+) {
     switch (action.type) {
-        case "SELECTSIZE":
-            state = action.filterSize
-            return state
-        default: return state
+        case INVALIDATE_LIST:
+            return state;
+        case REQUEST_POSTS:
+            return Object.assign({}, state, {
+                isFetching: true
+            });
+        case RECEIVE_POSTS:
+            // console.log(action)
+            return Object.assign({}, state, {
+                isFetching: false,
+                products: action.lists
+            });
+        case FAILED_POSTS:
+            console.log(action.err);
+            return state;
+        default:
+            return state;
     }
-
 }
 
+const lists = (state = {}, action) => {
+    //在products 判断state格式
+    switch (action.type) {
+        case INVALIDATE_LIST:
+        case REQUEST_POSTS:
+        case RECEIVE_POSTS:
+            return Object.assign({}, state, posts(state, action));
 
+        default:
+            return state;
+    }
+};
+const checkedSize = (state = [], action) => {
+    switch (action.type) {
+        case SELECTSIZE:
+            return action.checkedList;
+        default:
+            return state;
+    }
+};
 
-function setFilterOrderBy(state = SelectFilters.SELECT, action) {
-    console.log("SelectFilters: ", state, action.type)
+const selectByOrder = (state = SelectFilters.SELECT, action) => {
     switch (action.type) {
         case SelectFilters.SELECT:
-            return action.orderBy
-        case SelectFilters.HIGHESTPRICE:
-            return action.orderBy
+            return action.order;
         case SelectFilters.LOWESTPRICE:
-            return action.orderBy
-        default: return state;
-
-    }
-}
-
-function getlists(state = initlists, action) {
-    switch (action.type) {
-        case "GETDATA":
-            return initlists;
-        default: return state
-    }
-}
-
-const setlists = (state = initlists, action) => {
-    console.log("Lists: ", state, action.type);
-    const newState = state.concat();  //返回新的数组
-    switch (action.type) {
-        case SelectFilters.SELECT:
-            return newState.sort((a, b) => a.id - b.id)
+            return action.order;
         case SelectFilters.HIGHESTPRICE:
-            return newState.sort((a, b) => b.price - a.price)
-        case SelectFilters.LOWESTPRICE:
-            return newState.sort((a, b) => a.price - b.price)
-        default: return newState;
+            return action.order;
+        default:
+            return state;
     }
-}
+};
 
-
-const cartList = (state = [], action) => {
-
+const cartLists = (state = [], action) => {
+    var newState = [...state];
     switch (action.type) {
-        case "ADD_CART":
-            var newState = [...state];
-            if (newState.findIndex(it => it.id === action.payload.id) == -1) {
-                newState.push(action.payload)
-                console.log(newState)
-                return newState;
+        case PUSH_CART:
+            const index = state.findIndex(a => a.id === action.item.id);
+
+            if (index === -1) {
+                action.item.quantity = 1;
+                newState.push(action.item);
             }
-        case "DEC_CART":
-            var newState = [...state];
-           const index=newState.findIndex(it=>it.id===action.payload);
-           newState.splice(index,1);
-           return newState;
-        default: return state;
+
+            return newState;
+        case PULL_CART:
+            return newState.filter(it => it.id !== action.item);
+        case INCREASE_QUANTITY:
+            return newState.map(it => {
+                if (it.id === action.payload) {
+                    ++it.quantity;
+                }
+                return it;
+            });
+        case DECREASE_QUANTITY:
+            return newState.map(it => {
+                if (it.id === action.payload) {
+                    it.quantity = --it.quantity < 1 ? 1 : it.quantity;
+                }
+                return it;
+            });
+
+        default:
+            return state;
     }
-}
+};
+
+export default combineReducers({
+    selectByOrder,
+    checkedSize,
+    lists,
+    cartLists
+});
 
 
-
-
-const todoApp = combineReducers({
-    setfilterSize,
-    setFilterOrderBy,
-    lists: setlists,
-    cartList
-})
-
-
-
-
-
-export default todoApp
 

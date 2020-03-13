@@ -1,12 +1,13 @@
 import Spinner from './Spinner';
-import ShelfContainer from "./Shelfcontainer"
-import SizeFilter from './Sizefilter'
-import FloatCart from './FloatCart'
+ import Sider from "./siderSize/Sider"
+import Product from './products/products'
+
+import Cart from './floatCart'
 
 export {
     Spinner,
-    ShelfContainer,
-    SizeFilter,
-    FloatCart
+    Sider,
+    Product,
+    Cart
 
 }

@@ -1,0 +1,79 @@
+.ant-card-body {
+    padding: 0 !important;
+    text-align: center;
+
+    h2 {
+        padding-top: 10px;
+        margin-bottom: 0;
+
+        button {
+            width: 100%;
+            background-color: black;
+            color: white;
+            outline: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+    }
+
+    .ant-card-meta {
+        margin: 5px 0 0;
+
+        .ant-card-meta-title {
+            position: relative;
+            height: 60px;
+            white-space: pre-wrap;
+            font-size: 18px;
+
+            &::after {
+                content: " ";
+                position: absolute;;
+                border-bottom: 3px solid goldenrod;
+                width: 20%;
+                height: 5px;
+               
+                top:90%;
+                left:40%;
+            }
+
+        }
+
+
+        .ant-card-meta-description {
+            font-size: 12px;
+
+            .product_price {
+
+                color: black;
+
+                strong {
+                    font-size: 20px;
+                }
+            }
+
+        }
+    }
+
+
+
+
+}
+
+
+
+.ant-card-hoverable:hover .ant-card-body {
+
+    h2 button {
+        background-color: gold;
+    }
+}
+
+.sort{
+   
+   
+    .ant-select {
+        margin-left: 10px;
+
+    }
+}

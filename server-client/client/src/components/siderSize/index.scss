@@ -1,0 +1,47 @@
+.filterSize {
+    .ant-col {
+        padding: 10px;
+        text-align: center;
+
+
+        position: relative;
+        display: flex;
+
+        .ant-checkbox {
+            opacity: 0;
+        }
+
+        .ant-checkbox-wrapper {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 1px solid gray;
+            position: relative;
+            padding: 5px;
+            span:last-child {
+                position: absolute;
+                font-size: 16px;
+             
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .ant-checkbox-wrapper-checked {
+            background-color: black;
+            color: blanchedalmond;
+        }
+
+        .ant-checkbox-checked .ant-checkbox-inner {
+            background-color: transparent;
+            border-color: transparent
+        }
+
+        .ant-checkbox-inner {
+            border: none;
+            outline: none;
+        }
+
+    }
+}
