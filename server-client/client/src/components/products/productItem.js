@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Card  } from "antd";
+import { Card } from "antd";
 import { connect } from "react-redux";
 // import { addToCart} from '../../action/action'
-import { addToCart} from '../../action/newAction'
+import { addToCart } from '../../action/newAction'
 
 /*  item:
 {
@@ -21,7 +21,7 @@ import { addToCart} from '../../action/newAction'
 
 */
 
- class productItem extends Component {
+class productItem extends Component {
   render() {
     const { item } = this.props;
 
@@ -42,14 +42,20 @@ import { addToCart} from '../../action/newAction'
                 {(item.price * 100) % 100}
               </div>
               <span>
-                or {item.installments} X {item.currencyFormat}{" "}
-                {(item.price / item.installments).toFixed(2)}
+
+                {
+                  JSON.stringify(item.price / item.installments) !== "null" ? 
+                  ( ` or  ${item.installments}  X  ${item.currencyFormat}${" "} `+(item.price / item.installments).toFixed(2)) 
+                  :  "No Installments" 
+                }
+
+
               </span>
             </>
           }
         />
         <h2>
-          <button onClick={()=>{
+          <button onClick={() => {
             this.props.dispatch(addToCart(item.id))
           }}>Add Cart</button>
         </h2>

@@ -84,12 +84,29 @@ export const fetchData = () => {
     };
 }
 
-export const addToCart = itemId => ({
+export const addToCart = actionId => ({
     type: PUSH_CART,
-    itemId
+    actionId
+  });
+export const deleteToCart = actionId => ({
+    type: PULL_CART,
+    actionId
   });
 
-
+  export const  increase=(actionId)=>{
+      return{
+        type:INCREASE_QUANTITY,
+        actionId
+      }
+  }
+  
+  
+  export const  decrease=(actionId)=>{
+      return{
+         type:DECREASE_QUANTITY ,
+         actionId
+      }
+  }
 
 
 

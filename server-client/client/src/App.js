@@ -18,7 +18,7 @@ function App(props) {
         </Col>
       </Row>
       {/* <Spinner /> */}
-      {/* <Cart /> */}
+      <Cart />
     </Layout>
   )
 }

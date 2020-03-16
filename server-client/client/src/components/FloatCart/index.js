@@ -21,11 +21,12 @@ class Cart extends Component {
 
     render() {
         const { lists } = this.props;
-        var quantity=0,total_price=0;
-        lists.map(it=>{
-            quantity+=it.quantity;
-            total_price +=(it.quantity*it.price).toFixed(2)*1;
-        })
+        var quantity = 0, total_price = 0;
+        if (lists.length !== 0)
+            lists.map(it => {
+                quantity += it.quantity;
+                total_price += (it.quantity * it.price).toFixed(2) * 1;
+            })
         return (
             <div className="floatcart">
                 <div className="cart-icon" onClick={this.showDrawer}>
@@ -46,9 +47,9 @@ class Cart extends Component {
                 >
                     <ListItem lists={lists} />
                     <div className="submit_total">
-                        <h2><span>Total</span><span style={{float:"right",color:"gold"}}>$ {total_price.toFixed(2)}</span></h2>
-                        <p><button onClick={()=>{
-                            alert('$ '+total_price)
+                        <h2><span>Total</span><span style={{ float: "right", color: "gold" }}>$ {total_price.toFixed(2)}</span></h2>
+                        <p><button onClick={() => {
+                            alert('$ ' + total_price)
                         }}>Check Out</button></p>
                     </div>
                 </Drawer>
@@ -58,11 +59,14 @@ class Cart extends Component {
 }
 
 
-const mapStateToProps = state => ({
-    lists: Object.keys(state.shopCart).map(value=>{
-        
-        return state.products.items[value]
-    })
-})
+const mapStateToProps = state => {
+
+    return {
+        lists: Object.keys(state.shopCart).map(value => {
+
+            return Object.assign({}, state.products.items[value], state.shopCart[value])
+        })
+    }
+}
 
 export default connect(mapStateToProps)(Cart)

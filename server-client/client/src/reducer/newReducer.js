@@ -10,7 +10,9 @@ import {
     RECEIVE_POSTS, //获取
     FAILED_POSTS
 } from "../action/newAction";
-import { combineReducers } from "redux";
+import {
+    combineReducers
+} from "redux";
 
 /*****     重新定义 store   ************/
 
@@ -101,13 +103,10 @@ function posts(
                 isFetching: true
             });
         case RECEIVE_POSTS:
-            return Object.assign(
-                {},
-                state,
-                {
+            return Object.assign({},
+                state, {
                     isFetching: false
-                },
-                {
+                }, {
                     ...action.products
                 }
             );
@@ -128,18 +127,40 @@ const products = (state = {}, action) => {
     }
 };
 
-const chopCart = (state = {}, action) => {
+const shopCart = (state = {}, action) => {
     switch (action.type) {
         case PUSH_CART:
             return Object.assign({}, state, {
-                    [action.actionId]: {
-                        quantity: 1
-                    }
-                });
+                [action.actionId]: {
+                    quantity: 1
+                }
+            });
         case PULL_CART:
+            var newState = {
+                ...state
+            }
+            delete newState[action.actionId]
+            return newState;
 
         case INCREASE_QUANTITY:
+            var newState = {
+                    ...state
+                }
+                ++newState[action.actionId].quantity
+            return newState;
+            /*
+            Object.assign({}, state, {
+                     [action.actionId]: {
+                         quantity: ++state[action.actionId].quantity
+                     }
+                 });
+            */
         case DECREASE_QUANTITY:
+            return Object.assign({}, state, {
+                [action.actionId]: {
+                    quantity: --state[action.actionId].quantity > 1 ? state[action.actionId].quantity : 1
+                }
+            });
         default:
             return state;
     }
@@ -149,5 +170,5 @@ export default combineReducers({
     checkedSize,
     orderSelect,
     products,
-    chopCart
+    shopCart
 });
